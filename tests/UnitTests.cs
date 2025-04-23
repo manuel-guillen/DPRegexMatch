@@ -1,90 +1,25 @@
 namespace DPRegexMatchTests;
 
+using FluentAssertions;
+
 using static DPRegexMatch.Program;
 
 public class UnitTests
 {
-    [Fact]
-    public void Test_IsMatch_aa_a()
-    {
-        Assert.False(IsMatch("aa", "a"));
-    }
-
-    [Fact]
-    public void Test_IsMatch_aa_aStar()
-    {
-        Assert.True(IsMatch("aa", "a*"));
-    }
-
-    [Fact]
-    public void Test_IsMatch_ab_dotStar()
-    {
-        Assert.True(IsMatch("ab", ".*"));
-    }
-
-    [Fact]
-    public void Test_IsMatch_aab_cStar_aStar_b()
-    {
-        Assert.True(IsMatch("aab", "c*a*b"));
-    }
-
-    [Fact]
-    public void Test_IsMatch_ab_dotStar_c()
-    {
-        Assert.False(IsMatch("ab", ".*c"));
-    }
-
-    [Fact]
-    public void Test_IsMatch_a_dotStar()
-    {
-        Assert.True(IsMatch("a", ".*"));
-    }
-
-    [Fact]
-    public void Test_IsMatch_a_dotStar_a()
-    {
-        Assert.True(IsMatch("a", ".*a"));
-    }
-
-    [Fact]
-    public void Test_IsMatch_a_dotStar_aStar()
-    {
-        Assert.True(IsMatch("a", ".*a*"));
-    }
-
-    [Fact]
-    public void Test_IsMatch_a_dotStar_aStar_b()
-    {
-        Assert.False(IsMatch("a", ".*a*b"));
-    }
-
-    [Fact]
-    public void Test_IsMatch_a_dotStar_aStar_bStar()
-    {
-        Assert.True(IsMatch("a", ".*a*b*"));
-    }
-
-    [Fact]
-    public void Test_IsMatch_a_dotStar_aStar_bStar_c()
-    {
-        Assert.False(IsMatch("a", ".*a*b*c"));
-    }
-
-    [Fact]
-    public void Test_IsMatch_a_dotStar_aStar_bStar_cStar()
-    {
-        Assert.True(IsMatch("a", ".*a*b*c*"));
-    }
-
-    [Fact]
-    public void Test_IsMatch_mississippi_misStar_isStar_pDot()
-    {
-        Assert.False(IsMatch("mississippi", "mis*is*p*."));
-    }
-
-    [Fact]
-    public void Test_IsMatch_ssissippi_sStar_isStar_pDot()
-    {
-        Assert.False(IsMatch("ssissippi", "s*is*p*."));
-    }
+    [Theory]
+    [InlineData("aa", "a", false)]
+    [InlineData("aa", "a*", true)]
+    [InlineData("ab", ".*", true)]
+    [InlineData("aab", "c*a*b", true)]
+    [InlineData("ab", ".*c", false)]
+    [InlineData("a", ".*", true)]
+    [InlineData("a", ".*a", true)]
+    [InlineData("a", ".*a*", true)]
+    [InlineData("a", ".*a*b", false)]
+    [InlineData("a", ".*a*b*", true)]
+    [InlineData("a", ".*a*b*c", false)]
+    [InlineData("a", ".*a*b*c*", true)]
+    [InlineData("mississippi", "mis*is*p*.", false)]
+    [InlineData("ssissippi", "s*is*p*.", false)]
+    public void Test_IsMatch(string input, string pattern, bool expected) => IsMatch(input, pattern).Should().Be(expected);
 }
