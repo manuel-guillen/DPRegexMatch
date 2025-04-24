@@ -1,8 +1,6 @@
-namespace DPRegexMatchTests;
-
 using FluentAssertions;
 
-using static DPRegexMatch.Program;
+using static BottomUpSolution.Program;
 
 public class UnitTests
 {

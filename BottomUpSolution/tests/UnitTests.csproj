@@ -1,10 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+	<NoWarn>CA1050</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,11 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\DPRegexMatch.csproj" />
+    <ProjectReference Include="..\src\BottomUpSolution.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
-
 </Project>
